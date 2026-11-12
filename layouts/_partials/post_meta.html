@@ -1,0 +1,4 @@
+{{- if .Params.demo }}<span class="sample-label">示例笔记</span><span class="meta-dot">·</span>{{ else }}{{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2006.01.02" }}</time><span class="meta-dot">·</span>{{ end }}{{ end -}}
+{{- range $index, $term := .GetTerms "categories" }}{{ if $index }} / {{ end }}<span>{{ $term.LinkTitle }}</span>{{ end -}}
+{{- if .Param "ShowReadingTime" }}<span class="meta-dot">·</span><span>{{ i18n "read_time" .ReadingTime | default (printf "%d 分钟" .ReadingTime) }}</span>{{ end -}}
+{{- if .Param "hideAuthor" | not }}<span class="meta-dot">·</span><span>gulu</span>{{ end -}}

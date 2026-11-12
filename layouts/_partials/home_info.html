@@ -1,0 +1,14 @@
+<section class="first-entry home-info gulu-intro">
+  <p class="intro-kicker">GULU / LEARNING IN PUBLIC</p>
+  <h1>学有所记，<span>做有所获。</span></h1>
+  <p class="intro-text">{{ site.Params.homeInfoParams.Content }}</p>
+  <div class="intro-actions"><a class="ink-button" href="{{ "notes/" | relURL }}">翻开学习笔记 <span aria-hidden="true">↗</span></a><a class="quiet-button" href="{{ "projects/" | relURL }}">看看项目 <span aria-hidden="true">→</span></a></div>
+  <div class="direction-links" aria-label="学习方向">
+    {{ range $index, $topic := slice "Linux 内核" "操作系统" "ROS" }}
+    <a href="{{ printf "categories/%s/" ($topic | urlize) | relURL }}"><span class="direction-index">0{{ add $index 1 }}</span><span>{{ $topic }}</span><span aria-hidden="true">↗</span></a>
+    {{ end }}
+  </div>
+</section>
+<div class="notes-heading"><div><span class="small-label">THE NOTEBOOK</span><h2>最近记录</h2></div><a href="{{ "archives/" | relURL }}">查看归档 ↗</a></div>
+{{ $notes := where site.RegularPages "Section" "notes" }}
+{{ if eq (len (where $notes "Params.demo" "ne" true)) 0 }}<p class="home-demo-note">以下为示例笔记，真实的学习记录将从这里开始。</p>{{ end }}

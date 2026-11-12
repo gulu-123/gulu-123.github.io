@@ -1,0 +1,83 @@
+baseURL: https://gulu-123.github.io/
+title: gulu
+locale: zh-CN
+defaultContentLanguage: zh
+hasCJKLanguage: true
+timeZone: Asia/Shanghai
+theme: PaperMod
+enableRobotsTXT: true
+pagination:
+  pagerSize: 6
+taxonomies:
+  category: categories
+  tag: tags
+outputs:
+  home: [HTML, RSS, JSON]
+permalinks:
+  page:
+    notes: /notes/:slug/
+params:
+  env: development
+  description: gulu 的学习与项目。关注 Linux 内核、操作系统与 ROS。
+  author: gulu
+  mainSections: [notes]
+  defaultTheme: light
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowWordCount: false
+  ShowToc: true
+  TocOpen: true
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowShareButtons: false
+  disableSpecial1stPost: true
+  DateFormat: 2006.01.02
+  homeInfoParams:
+    Title: 学有所记，做有所获。
+    Content: 我是 gulu。在源码、系统与机器人之间，记录每一次理解，也留下动手实践的过程。
+  label:
+    text: gulu
+  assets:
+    favicon: favicon.svg
+    favicon16x16: favicon-16x16.png
+    favicon32x32: favicon-32x32.png
+    apple_touch_icon: apple-touch-icon.png
+    safari_pinned_tab: favicon.svg
+    theme_color: "#faf9f6"
+    disableHLJS: true
+  footer:
+    text: 记录理解，持续实践。
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.35
+    minMatchCharLength: 2
+    keys: [title, summary, content]
+menu:
+  main:
+    - name: 学习
+      pageRef: /notes
+      weight: 10
+    - name: 项目
+      pageRef: /projects
+      weight: 20
+    - name: 归档
+      pageRef: /archives
+      weight: 30
+    - name: 搜索
+      pageRef: /search
+      weight: 40
+    - name: 关于
+      pageRef: /about
+      weight: 50
+markup:
+  goldmark:
+    renderer:
+      unsafe: false
+  highlight:
+    noClasses: false
+    lineNos: false
+    guessSyntax: false

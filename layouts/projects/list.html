@@ -1,0 +1,9 @@
+{{ define "main" }}
+<header class="page-header project-page-header"><p class="small-label">PROJECTS / BUILD TO UNDERSTAND</p><h1>{{ .Title }}</h1><p class="post-description">{{ .Description }}</p></header>
+{{ with .Content }}<div class="post-content">{{ . }}</div>{{ end }}
+<div class="gulu-project-grid">
+{{ range $i, $p := .RegularPages.ByWeight }}
+<article class="gulu-project"><div class="project-topline"><span class="project-no">{{ printf "%02d" (add $i 1) }}</span><span class="project-status">{{ .Params.status }}</span></div><h2><a href="{{ .RelPermalink }}">{{ .Title }} <span aria-hidden="true">↗</span></a></h2><p>{{ .Description }}</p><ul class="project-stack">{{ range .Params.stack }}<li>{{ . }}</li>{{ end }}</ul><a class="project-more" href="{{ .RelPermalink }}">查看项目构想 →</a></article>
+{{ end }}
+</div>
+{{ end }}
