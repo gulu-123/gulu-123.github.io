@@ -3,4 +3,6 @@
 /.hugo_build.lock
 /.cache/
 /.tools/
+/AGENTS.md
+/scripts/
 *.log

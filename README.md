@@ -4,18 +4,15 @@
 
 网站：https://gulu-123.github.io/ · 仓库：https://github.com/gulu-123/gulu-123.github.io
 
-## 打开 demo
+## 本地预览
 
-当前预览：http://127.0.0.1:1313/
+安装 Hugo 0.169.0 后，在项目目录中运行：
 
-如果预览服务停止，在 PowerShell 中运行：
-
-```powershell
-cd 'E:\个人\网站\hugo-demo'
-.\scripts\preview.ps1
+```shell
+hugo server
 ```
 
-脚本会使用本工作区 `.tools/hugo-0.169.0/hugo.exe`。若复制到其他电脑，安装 Hugo 0.169.0 并确保 `hugo` 命令可用即可。无需 Node.js、Go、npm 依赖或数据库；只有可选的构建链接检查使用 Node.js。
+预览地址：http://localhost:1313/ 。无需 Node.js、Go、npm 依赖或数据库。主题源码已包含在仓库中。
 
 ## 看什么
 
@@ -61,15 +58,11 @@ draft: false
 
 ## 构建
 
-```powershell
-.\scripts\build.ps1
+```shell
+hugo --minify
 ```
 
-静态页面输出到 `public/`。它是构建产物，Git 已忽略该目录。检查产物中的链接：
-
-```powershell
-node scripts/check-build.mjs public http://localhost:1313/
-```
+静态页面输出到 `public/`。它是构建产物，Git 已忽略该目录。`AGENTS.md` 和 `scripts/` 是可选的本地维护文件，也已从仓库排除，构建与发布不依赖它们。
 
 ## GitHub Pages 部署
 
