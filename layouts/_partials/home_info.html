@@ -3,11 +3,24 @@
   <h1>学有所记，<span>做有所获。</span></h1>
   <p class="intro-text">{{ site.Params.homeInfoParams.Content }}</p>
   <div class="intro-actions"><a class="ink-button" href="{{ "notes/" | relURL }}">翻开学习笔记 <span aria-hidden="true">↗</span></a><a class="quiet-button" href="{{ "projects/" | relURL }}">看看项目 <span aria-hidden="true">→</span></a></div>
-  <div class="direction-links" aria-label="学习方向">
-    {{ range $index, $topic := slice "Linux 内核" "操作系统" "ROS" }}
-    <a href="{{ printf "categories/%s/" ($topic | urlize) | relURL }}"><span class="direction-index">0{{ add $index 1 }}</span><span>{{ $topic }}</span><span aria-hidden="true">↗</span></a>
-    {{ end }}
+  {{ with site.GetPage "categories" }}
+  {{ $topics := .Pages.ByTitle }}
+  <div class="topic-browser" data-topic-browser>
+    <button class="topic-toggle" type="button" aria-expanded="false" aria-controls="learning-topics">
+      <span class="topic-toggle-label"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor"><rect x="3" y="3" width="5" height="5"/><rect x="12" y="3" width="5" height="5"/><rect x="3" y="12" width="5" height="5"/><rect x="12" y="12" width="5" height="5"/></svg>学习专题<span class="topic-toggle-hint">按主题浏览笔记</span></span>
+      <span class="topic-toggle-end"><span>{{ len $topics }} 个专题</span><svg class="topic-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m5 7 5 5 5-5"/></svg></span>
+    </button>
+    <nav id="learning-topics" class="topic-panel" aria-label="学习专题" aria-hidden="true" inert>
+      <div class="topic-panel-heading"><span>选择专题</span><a href="{{ .RelPermalink }}">全部专题 ↗</a></div>
+      <div class="topic-grid">
+        {{ range $topics }}
+        <a class="topic-option" href="{{ .RelPermalink }}"><span><strong>{{ .LinkTitle }}</strong><small>{{ $count := len .RegularPages }}{{ if $count }}{{ $count }} 篇笔记{{ else }}等待记录{{ end }}</small></span><span aria-hidden="true">↗</span></a>
+        {{ end }}
+      </div>
+    </nav>
   </div>
+  <noscript><a href="{{ .RelPermalink }}">浏览全部学习专题 →</a></noscript>
+  {{ end }}
 </section>
 <div class="notes-heading"><div><span class="small-label">THE NOTEBOOK</span><h2>最近记录</h2></div><a href="{{ "archives/" | relURL }}">查看归档 ↗</a></div>
 {{ $notes := where site.RegularPages "Section" "notes" }}

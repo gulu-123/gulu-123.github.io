@@ -1,0 +1,6 @@
+{{ if .IsHome }}
+{{ with resources.Get "js/topic-browser.js" }}
+{{ $script := . | minify | fingerprint }}
+<script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
+{{ end }}

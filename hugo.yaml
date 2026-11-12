@@ -61,9 +61,6 @@ menu:
     - name: 学习
       pageRef: /notes
       weight: 10
-    - name: CS 168
-      pageRef: /categories/cs-168
-      weight: 15
     - name: 项目
       pageRef: /projects
       weight: 20
