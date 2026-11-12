@@ -6,6 +6,22 @@
   const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
   let closeTimer;
   let explicitlyOpened = false;
+  let pointerInside = false;
+  function insideRegion(event) {
+    const triggerBox = button.getBoundingClientRect();
+    const panelBox = panel.getBoundingClientRect();
+    // Treat the trigger, the visual gap and the entire popover as one region.
+    return event.clientX >= Math.min(triggerBox.left, panelBox.left)
+      && event.clientX <= Math.max(triggerBox.right, panelBox.right)
+      && event.clientY >= triggerBox.top
+      && event.clientY <= Math.max(triggerBox.bottom, panelBox.bottom);
+  }
+  function scheduleClose() {
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
+      if (!pointerInside && !root.contains(document.activeElement)) setOpen(false);
+    }, 300);
+  }
   function setOpen(open) {
     clearTimeout(closeTimer);
     if (!open) explicitlyOpened = false;
@@ -19,14 +35,27 @@
     explicitlyOpened = open;
     setOpen(open);
   });
-  root.addEventListener('pointerenter', () => { if (hover.matches) setOpen(true); });
-  root.addEventListener('pointerleave', () => {
-    if (hover.matches) closeTimer = setTimeout(() => {
-      if (!panel.contains(document.activeElement)) setOpen(false);
-    }, 140);
+  root.addEventListener('pointerenter', () => {
+    if (hover.matches) { pointerInside = true; setOpen(true); }
+  });
+  panel.addEventListener('pointerenter', () => {
+    pointerInside = true;
+    clearTimeout(closeTimer);
+  });
+  root.addEventListener('pointerleave', event => {
+    if (!hover.matches) return;
+    pointerInside = insideRegion(event);
+    if (!pointerInside) scheduleClose();
+  });
+  document.addEventListener('pointermove', event => {
+    if (!hover.matches || button.getAttribute('aria-expanded') !== 'true') return;
+    const wasInside = pointerInside;
+    pointerInside = insideRegion(event);
+    if (pointerInside) clearTimeout(closeTimer);
+    else if (wasInside) scheduleClose();
   });
   root.addEventListener('focusout', event => {
-    if (!root.contains(event.relatedTarget)) setOpen(false);
+    if (!root.contains(event.relatedTarget) && !pointerInside) setOpen(false);
   });
   root.addEventListener('keydown', event => {
     if (event.key === 'Escape') { setOpen(false); button.focus(); }
