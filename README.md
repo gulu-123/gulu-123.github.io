@@ -1,5 +1,10 @@
 # gulu · Hugo + PaperMod
 
+[![GitHub Pages deployment](https://github.com/gulu-123/gulu-123.github.io/actions/workflows/hugo.yaml/badge.svg?branch=main)](https://github.com/gulu-123/gulu-123.github.io/actions/workflows/hugo.yaml)
+[![Hugo](https://img.shields.io/badge/built_with-Hugo-555555?logo=hugo&logoColor=white)](https://gohugo.io/)
+[![PaperMod](https://img.shields.io/badge/theme-PaperMod-555555)](https://github.com/adityatelange/hugo-PaperMod)
+[![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-555555?logo=github&logoColor=white)](https://gulu-123.github.io/)
+
 个人学习与项目站点，使用 Hugo **0.169.0** 与本地保存的 PaperMod 主题。
 
 网站：https://gulu-123.github.io/ · 仓库：https://github.com/gulu-123/gulu-123.github.io
