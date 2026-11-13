@@ -108,7 +108,7 @@ int get(void) {
 
 ## 5. signal 与 broadcast 怎么选？
 
-`signal` 通知等待者，**不应假定它严格只唤醒一个或按 FIFO 点名**；`broadcast` 通知当前全部等待者。两者都不存储未来的“通行证”，醒来都要重新拿 mutex 并检查条件。
+`signal` 至少唤醒一个等待者（若有），**不保证严格只唤醒一个或按 FIFO 点名**；`broadcast` 唤醒当前全部等待者。两者都不存储未来的“通行证”，醒来都要重新拿 mutex 并检查条件。
 
 放入一个元素，通常通知一个消费者即可；关闭队列这类所有等待者都应重新判断的状态变化，可以 broadcast，但需要额外的关闭状态与退出逻辑。广播后大家仍会竞争 mutex，不是一起进入临界区；过多无效唤醒会增加开销。
 
@@ -118,4 +118,5 @@ int get(void) {
 
 - [OSTEP 第 28 章 §28.14](https://pages.cs.wisc.edu/~remzi/OSTEP/threads-locks.pdf)：guard、所有权移交与 setpark 的顺序。
 - [OSTEP 第 30 章](https://pages.cs.wisc.edu/~remzi/OSTEP/threads-cv.pdf)：条件变量、join、双条件变量有界缓冲区与 broadcast。
+- [POSIX 条件变量通知接口](https://man7.org/linux/man-pages/man3/pthread_cond_broadcast.3p.html)：signal 的唤醒数量、调度顺序与锁的要求。
 - 前置：[CS537 Locks：加锁为什么还允许线程切换？](../cs537-locks/)——先区分互斥与调度，再理解等待协议。
