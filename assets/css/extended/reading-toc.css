@@ -1,0 +1,58 @@
+/* 不复制目录、不移动正文内容；无 :has 支持时保留原来的顶部目录。 */
+.toc-shell { min-width: 0; }
+.toc-shell .toc { margin-bottom: var(--content-gap); }
+.toc-shell .inner a { overflow-wrap: anywhere; }
+.post-content h2, .post-content h3, .post-content h4 { scroll-margin-top: 28px; }
+
+@supports selector(:has(*)) {
+  /* 正文保持原有阅读宽度，空间足够时才增加右侧栏。 */
+  @media (min-width: 1120px) {
+    .main:has(.post-single > .toc-shell) {
+      max-width: calc(var(--main-width) + var(--gap) * 2 + 252px);
+    }
+    .post-single:has(> .toc-shell) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      column-gap: 32px;
+      align-items: start;
+    }
+    .post-single:has(> .toc-shell) > * { grid-column: 1; min-width: 0; }
+    .post-single > .toc-shell {
+      grid-column: 2;
+      grid-row: 1 / span 20;
+      align-self: stretch;
+      padding-top: 24px;
+    }
+    .toc-shell .toc {
+      position: sticky;
+      top: 28px;
+      max-height: calc(100vh - 56px);
+      max-height: calc(100dvh - 56px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--entry);
+      border: 1px solid var(--border);
+      box-shadow: var(--paper-shadow);
+    }
+    .toc-shell .toc summary {
+      padding: 0 0 9px;
+      font-size: 14px;
+      color: var(--primary);
+    }
+    .toc-shell .toc .inner {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--secondary);
+    }
+    .toc-shell .toc ul { padding-inline-start: 15px; }
+    .toc-shell .toc nav > ul { padding-inline-start: 0; }
+    .toc-shell .toc li { margin: 9px 0; }
+    .toc-shell .toc a { display: block; }
+    .toc-shell .toc a:hover { color: var(--ink-vermilion); }
+  }
+}
