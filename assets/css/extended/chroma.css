@@ -65,3 +65,17 @@
 /* GenericInserted */ .chroma .gi { color:#a6e22e }
 /* GenericStrong */ .chroma .gs { font-weight:bold }
 /* GenericSubheading */ .chroma .gu { color:#75715e }
+
+/* 水墨代码层：保持深底高对比；中文回退文楷，英文保留等宽。 */
+.chroma, .bg { background-color: var(--code-block-bg); color: #e5ddcb; }
+.chroma .p { color: #e5ddcb; }
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kp, .chroma .kr, .chroma .kt { color: #9ec4b0; }
+.chroma .kn, .chroma .nt, .chroma .o, .chroma .ow { color: #e4a18f; }
+.chroma .nf, .chroma .fm, .chroma .nc, .chroma .na { color: #b9caa3; }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sc, .chroma .sb, .chroma .sd { color: #dec18d; }
+.chroma .m, .chroma .mi, .chroma .mf, .chroma .mh, .chroma .il { color: #c4b0cd; }
+/* 注释采用柔和墨绿和轻斜体，仍满足深色代码底上的阅读对比。 */
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf {
+  color: #a4ad97;
+  font-style: italic;
+}

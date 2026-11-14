@@ -22,3 +22,26 @@
 @media(max-width:600px){.topic-browser{margin-top:28px}.topic-toggle{padding:17px 0;font-size:12px}.topic-toggle-hint{display:none}.topic-toggle-end{font-size:10px;gap:12px}.topic-panel{padding:14px 12px;max-height:min(56vh,330px)}.topic-grid{gap:7px}.topic-option{padding:12px 10px;gap:9px}.topic-option strong{font-size:12px}.topic-option small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.topic-panel,.topic-chevron,.topic-option{transition:none}}
 @media(scripting:none){.topic-toggle{display:none}.topic-browser::after{display:none}}
+
+/* 专题书签沿用原展开行为，只改变纸色、墨线与强调色。 */
+.topic-toggle {
+  padding: 17px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: 4px;
+  background: var(--entry);
+  box-shadow: var(--paper-shadow);
+  transition: border-color .18s;
+}
+.topic-toggle:hover, .topic-browser.is-open .topic-toggle { border-left-color: var(--ink-vermilion); }
+.topic-toggle-label { font-family: var(--serif); letter-spacing: .04em; }
+.topic-toggle-hint { font-family: var(--book-font); letter-spacing: 0; font-size: 12px; }
+.topic-toggle-end > span { color: var(--ink-green); }
+.topic-panel { border-radius: 4px; box-shadow: 0 12px 30px rgba(31, 30, 28, .09), var(--paper-shadow); }
+.topic-option { border-left: 3px solid transparent; border-radius: 4px; background: var(--theme); }
+.topic-option strong { font-family: var(--serif); }
+.topic-option small { color: var(--ink-green); }
+.topic-option:hover { border-color: var(--border); border-left-color: var(--ink-vermilion); background: var(--code-bg); }
+.topic-panel-heading > a:hover { color: var(--ink-vermilion); }
+.topic-toggle:focus-visible, .topic-option:focus-visible, .topic-panel-heading > a:focus-visible { outline-color: var(--ink-vermilion); }
+@media (max-width: 600px) { .topic-toggle { padding: 15px 12px; } }

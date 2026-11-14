@@ -6,3 +6,172 @@ body{font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}.list{background:
 @media(max-width:600px){:root{--gap:20px;--header-height:76px}.nav{margin:0 20px;padding:0}.logo a{font-size:27px}.logo>a:after{font-size:10px;line-height:18px;margin-left:7px}.logo{gap:0}#theme-toggle{margin-left:9px}#menu{gap:17px}#menu a{font-size:12px}.main{padding-top:28px}.gulu-intro{padding-top:0}.intro-kicker{font-size:8px;letter-spacing:1px;margin-bottom:17px}.gulu-intro h1{font-size:36px;line-height:1.5;max-width:400px}.gulu-intro h1>span{display:block}.intro-text{font-size:14px;margin-bottom:21px}.intro-actions{gap:23px}.ink-button{font-size:12px;padding:9px 14px;gap:18px}.quiet-button{font-size:12px}.notes-heading{margin-top:27px}.notes-heading h2{font-size:24px}.notes-heading .small-label{font-size:8px}.home-demo-note{font-size:10px}.post-entry{padding:21px 19px;margin-bottom:14px}.entry-header h2{font-size:18px}.entry-content{font-size:13px}.entry-footer{font-size:10px}.meta-dot{padding:0 5px}.post-title{font-size:28px;line-height:1.6}.post-content{font-size:16px;line-height:1.95}.post-content h2{font-size:23px}.post-description{font-size:14px}.post-content pre code{font-size:12px}.page-header h1{font-size:30px}.gulu-project-grid{grid-template-columns:1fr;gap:17px}.gulu-project{padding:23px}.gulu-project h2{font-size:20px}.footer{font-size:10px}.archive-entry-title{font-size:15px}}
 @media(max-width:380px){.logo>a:after{display:none}#menu{gap:14px}.gulu-intro h1{font-size:34px}}
 @media(prefers-reduced-motion:reduce){.post-entry{transition:none}.post-entry:hover{transform:none}}
+
+/* 水墨书卷层：保留原布局与路由，集中定义纸色、墨色及可独立调整的三色点缀。 */
+:root {
+  --theme: #f7f2e9;
+  --entry: #fdfaf3;
+  --primary: #1f1e1c;
+  --content: #2b2926;
+  --secondary: #6e6a63;
+  --tertiary: #e6dfd3;
+  --border: rgba(31, 30, 28, .12);
+  --code-bg: #efe9dc;
+  --code-block-bg: #22211f;
+  --radius: 4px;
+  --ink-vermilion: #b83b2a;
+  --ink-green: #3b5e4c;
+  --ink-amber: #8c601f;
+  --ink-amber-line: #b57c2e;
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+  --book-font: "LXGW WenKai Screen", "Kaiti SC", KaiTi, "Noto Serif SC", serif;
+  --code-font: "JetBrains Mono", "Cascadia Code", Consolas, "LXGW WenKai Screen", monospace;
+  --paper-shadow: 0 2px 0 rgba(63, 48, 29, .035), 0 7px 22px rgba(63, 48, 29, .025);
+  --stamp-red: #b83b2a;
+}
+:root[data-theme="dark"] {
+  --theme: #161615;
+  --entry: #1f1f1d;
+  --primary: #ded5c4;
+  --content: #cfc6b6;
+  --secondary: #a39b8f;
+  --tertiary: #2a2926;
+  --border: rgba(222, 213, 196, .14);
+  --code-bg: #2a2926;
+  --code-block-bg: #111110;
+  /* 暗纸上的小字点缀提亮，朱砂方印仍使用稳定的深红印泥色。 */
+  --ink-vermilion: #ed927d;
+  --ink-green: #a8c3a7;
+  --ink-amber: #d6b174;
+  --ink-amber-line: #b99356;
+  --paper-shadow: 0 2px 0 rgba(0, 0, 0, .16), 0 8px 25px rgba(0, 0, 0, .12);
+}
+
+/* 极淡宣纸纤维：固定、无动画，不拦截鼠标，也不增加图片请求。 */
+body { isolation: isolate; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' d='M0 0h180v180H0z' filter='url(%23paper)' opacity='.7'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* 宋体题跋、文楷正文、清楚的小号元信息，各自保留适合的阅读尺度。 */
+h1, h2, h3, .gulu-intro h1, .entry-header h2, .page-header h1,
+.post-title, .post-content h2, .post-content h3, #menu, .toc summary {
+  font-family: var(--serif);
+  letter-spacing: .04em;
+}
+.intro-text, .entry-content, .post-description, .post-content,
+.gulu-project p, .home-demo-note {
+  font-family: var(--book-font);
+  line-height: 1.85;
+}
+.intro-text { font-size: 17px; }
+.entry-content { font-size: 16px; }
+.post-content { font-size: 19px; }
+.post-description, .gulu-project p { font-size: 16px; }
+.post-content h2 { font-size: 26px; }
+.post-content h3 { font-size: 21px; }
+.post-content p, .post-content ul, .post-content ol { line-height: 1.85; }
+.post-content table { font: 15px/1.85 var(--book-font); }
+.nav { border-bottom-color: var(--border); }
+#menu a:hover, .notes-heading > a:hover, .project-more:hover,
+.post-content a:hover, .breadcrumbs a:hover, .footer a:hover {
+  color: var(--ink-vermilion);
+}
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+  outline: 2px solid var(--ink-vermilion);
+  outline-offset: 4px;
+}
+
+/* 左上“记”字印：纯白字、深朱砂、细内边；不更换原有站名。 */
+.logo > a::after {
+  display: inline-block;
+  background: var(--stamp-red);
+  color: #fff;
+  font: 700 14px/25px var(--serif);
+  letter-spacing: 0;
+  padding: 1px 6px;
+  margin-left: 12px;
+  border: 1px solid var(--stamp-red);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35);
+  transform: rotate(-5deg);
+  transition: transform .18s ease;
+}
+.logo > a:hover::after { transform: translateY(-2px) rotate(-3deg); }
+.gulu-intro h1 { line-height: 1.5; margin-bottom: 17px; }
+.intro-kicker { color: var(--ink-green); }
+.ink-button {
+  color: var(--primary);
+  background: var(--entry);
+  border-color: var(--primary);
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 var(--tertiary);
+  transition: color .18s, border-color .18s, box-shadow .18s;
+}
+.ink-button > span { color: var(--ink-vermilion); }
+.ink-button:hover { opacity: 1; color: var(--ink-vermilion); border-color: var(--ink-vermilion); box-shadow: none; }
+.quiet-button:hover { color: var(--ink-vermilion); box-shadow: 0 1px 0 var(--ink-vermilion); }
+
+/* 纸页卡片：左侧预留边框，悬停不会造成文字横向跳动。 */
+.post-entry, .gulu-project {
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: 4px;
+  box-shadow: var(--paper-shadow);
+  transition: border-color .18s, transform .18s, box-shadow .18s;
+}
+.post-entry:hover, .gulu-project:hover {
+  border-color: var(--border);
+  border-left-color: var(--ink-vermilion);
+  transform: translateY(-2px);
+}
+.entry-header h2, .gulu-project h2 { line-height: 1.65; }
+.project-status { color: var(--ink-green); border-color: var(--border); border-radius: 3px; }
+.post-tags a, .terms-tags a { border: 1px solid var(--border); border-radius: 3px; background: var(--entry); }
+.post-tags a:hover, .terms-tags a:hover { color: var(--ink-vermilion); border-color: var(--ink-vermilion); }
+.post-content blockquote { border-left-color: var(--ink-amber-line); font: 17px/1.85 var(--book-font); }
+.post-content mark { background: var(--code-bg); color: var(--ink-amber); padding: 1px 4px; }
+.toc, .paginav, .demo-notice { border-radius: 4px; }
+.demo-notice { border-left-color: var(--ink-green); }
+.demo-notice strong { color: var(--ink-green); }
+.toc a:hover { color: var(--ink-vermilion); }
+
+/* 英文代码严格等宽；中文按字形回退文楷，不使用正文的宋体字距。 */
+pre, code, .highlight, .chroma, .post-content pre code, .post-content :not(pre) > code {
+  font-family: var(--code-font);
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+}
+.post-content pre code { font-size: 14px; line-height: 1.85; }
+.post-content pre { background: var(--code-block-bg); border: 1px solid var(--border); border-radius: 4px; }
+.post-content :not(pre) > code { color: var(--ink-vermilion); background: var(--code-bg); }
+
+@media (max-width: 600px) {
+  .intro-text { font-size: 16px; }
+  .entry-content { font-size: 15px; }
+  .post-content { font-size: 18px; }
+  .post-description { font-size: 15px; }
+  .post-content table { font-size: 14px; }
+  .post-content pre code { font-size: 13px; }
+  .post-title { font-size: 28px; }
+  .logo > a::after { font-size: 12px; line-height: 21px; margin-left: 8px; padding: 0 4px; }
+}
+@media (max-width: 380px) {
+  .logo > a::after { display: inline-block; font-size: 11px; line-height: 19px; margin-left: 5px; padding: 0 3px; }
+  .logo a { font-size: 24px; }
+  #menu { gap: 10px; }
+  #menu a { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo > a::after, .ink-button, .gulu-project, .post-entry { transition: none; }
+  .logo > a:hover::after { transform: rotate(-5deg); }
+  .gulu-project:hover, .post-entry:hover { transform: none; }
+}
