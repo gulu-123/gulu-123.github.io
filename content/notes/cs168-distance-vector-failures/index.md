@@ -87,4 +87,6 @@ B 以为 A 提供了另一条路，但 **A 的路本来就经过 B**，于是形
 
 **规则本身不复杂，难的是异步、丢包、旧消息和故障交错时，局部看似合理的选择仍可能组成全局环路。** 以后手推题就盯住“谁依赖谁”，比背术语更有用。
 
+续篇：[第 7 讲：Link-State 与 IP 寻址]({{< relref "/notes/cs168-link-state-ip-addressing" >}})，比较链路状态与距离向量交换的信息，再看地址前缀怎样缩小转发表。
+
 资料：[SP25 课程日历](https://sp25.cs168.io/#calendar) · [官方 DV 教材](https://textbook.cs168.io/routing/distance-vector.html)。本文按课程材料核对了对话中的规则编号与概念混淆，未记录未做过的实验。
